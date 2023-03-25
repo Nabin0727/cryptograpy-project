@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ASCII App</title>
+        <link rel ="stylesheet" href="css/main.css"> 
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>ASCII Encryption/Decryption</h1>
+            <div id="app-container">
+                <textarea name="" id="text"></textarea>
+                <div id="button-container">
+                    <button id="encrypt">Encrypt</button>
+                    <button id="decrypt">Decrypt</button>
+                </div> 
+            </div>
+        </div>
+
+        <script>
+            const btnEncrypt = document.querySelector('#encrypt');
+            const btnDecrypt = document.querySelector('#decrypt');
+            const textarea = document.querySelector('#text');
+
+            let encryptedMessage = '';
+
+            btnEncrypt.addEventListener('click', () => {
+                // Clear any previously encrypted message
+                encryptedMessage = '';
+                
+                for (let i = 0; i < textarea.value.length; i++) {
+                    encryptedMessage += textarea.value.charCodeAt(i).toString(2) + " ";
+                }
+                
+                // Set the value of the textarea to the encrypted message
+                textarea.value = encryptedMessage.trim();
+            });
+
+            btnDecrypt.addEventListener('click', () => {
+                // Split the encrypted message into an array of binary codes
+                const codes = encryptedMessage.trim().split(' ');
+                
+                // Convert each binary code back to its character and join them into a string
+                let decryptedMessage = '';
+                for (let i = 0; i < codes.length; i++) {
+                    decryptedMessage += String.fromCharCode(parseInt(codes[i], 2));
+                }
+                
+                // Set the value of the textarea to the decrypted message
+                textarea.value = decryptedMessage;
+            });
+        </script>
+    </body>
+</html>
